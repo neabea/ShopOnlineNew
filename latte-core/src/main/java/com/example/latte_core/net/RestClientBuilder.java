@@ -27,7 +27,12 @@ public class RestClientBuilder {
     private RequestBody mBody = null;
     private Context mContext = null;
     private LoaderStyle mLoaderStyle = null;
+    //upload
     private File mFile = null;
+    //download
+    private String mDownloadDir = null;
+    private String mExtension = null;
+    private String mName = null;
 
     RestClientBuilder(){} //只允许同包的RestClient new
 
@@ -53,6 +58,21 @@ public class RestClientBuilder {
 
     public final RestClientBuilder file(String filePath) {
         this.mFile = new File(filePath);
+        return this;
+    }
+
+    public final RestClientBuilder name(String name) {
+        this.mName = name;
+        return this;
+    }
+
+    public final RestClientBuilder dir(String dir) {
+        this.mDownloadDir = dir;
+        return this;
+    }
+
+    public final RestClientBuilder extension(String extension) {
+        this.mExtension = extension;
         return this;
     }
 
@@ -94,7 +114,7 @@ public class RestClientBuilder {
     }
 
     public final RestClient build(){
-        return new RestClient(mUrl,PARAMS,mIRequest,mISuccess,mIFailure,mIError,mBody,mFile,mContext,mLoaderStyle);
+        return new RestClient(mUrl,PARAMS,mDownloadDir,mExtension,mName,mIRequest,mISuccess,mIFailure,mIError,mBody,mFile,mContext,mLoaderStyle);
     }
 
 

@@ -66,4 +66,14 @@ public class Configurator {
         return this;
     }
 
+    @SuppressWarnings("unchecked")
+    final <T> T getConfiguration(Object key) {
+        checkConfiguration();
+        final Object value = LATTE_CONFIGS.get(key);
+        if (value == null) {
+            throw new NullPointerException(key.toString() + " IS NULL");
+        }
+        return (T) LATTE_CONFIGS.get(key);
+    }
+
 }
