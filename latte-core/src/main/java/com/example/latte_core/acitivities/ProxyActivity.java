@@ -4,17 +4,20 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.ContentFrameLayout;
 
 import com.example.latte_core.R;
 import com.example.latte_core.delegates.LatteDelegate;
 
+import me.yokeyword.fragmentation.ISupportActivity;
 import me.yokeyword.fragmentation.SupportActivity;
+import me.yokeyword.fragmentation.SupportActivityDelegate;
 
 //注意SupportAcitivity引用包
 public abstract class ProxyActivity extends SupportActivity {
     public abstract LatteDelegate setRootDelegate();
-
+    private final SupportActivityDelegate DELEGATE = new SupportActivityDelegate(this);
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +25,7 @@ public abstract class ProxyActivity extends SupportActivity {
     }
 
     private void initContainer(@Nullable Bundle savedInstanceState){
-        @SuppressLint("RestrictedApi") //自己加的，不加报错
+        @SuppressLint("RestrictedApi") //我自己加的，不加报错
         final ContentFrameLayout container = new ContentFrameLayout(this);
         // 需要新建ids xml文件
         container.setId(R.id.delegate_container);

@@ -15,6 +15,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+//实现图片apk下载到本地
 public class DownloadHandler {
     private final String URL;
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();
@@ -62,7 +63,7 @@ public class DownloadHandler {
                         ERROR.onError(response.code(), response.message());
                     }
                 }
-                RestCreator.getParams().clear();
+               // RestCreator.getParams().clear();
             }
 
             @Override

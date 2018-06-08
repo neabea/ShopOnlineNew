@@ -9,6 +9,7 @@ import com.example.latte_core.delegates.LatteDelegate;
 import com.example.latte_core.net.RestClient;
 import com.example.latte_core.net.callback.IError;
 import com.example.latte_core.net.callback.IFailure;
+import com.example.latte_core.net.callback.IRequest;
 import com.example.latte_core.net.callback.ISuccess;
 
 public class ExampleDelegate extends LatteDelegate{
@@ -24,12 +25,12 @@ public class ExampleDelegate extends LatteDelegate{
 
     private void testRestClient(){
         RestClient.builder()
-                .url("http://news.baidu.com/?tn=news")
+                .url("http://127.0.0.1/index")
                 .loader(getContext())
                 .success(new ISuccess() {
                     @Override
                     public void onSucess(String response) {
-                      //  Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
+                       Toast.makeText(getContext(),response,Toast.LENGTH_LONG).show();
                     }
                 })
                 .failure(new IFailure() {
@@ -46,6 +47,5 @@ public class ExampleDelegate extends LatteDelegate{
                 })
                 .build()
                 .get();
-
     }
 }
