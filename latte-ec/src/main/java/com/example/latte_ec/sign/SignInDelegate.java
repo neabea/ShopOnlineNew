@@ -1,5 +1,6 @@
 package com.example.latte_ec.sign;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -8,12 +9,17 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.latte_core.delegates.LatteDelegate;
+import com.example.latte_core.net.RestClient;
+import com.example.latte_core.net.callback.ISuccess;
+import com.example.latte_core.util.log.LatteLogger;
+import com.example.latte_core.wechat.LatteWeChat;
+import com.example.latte_core.wechat.callbacks.IWeChatSignInCallback;
 import com.example.latte_ec.R;
 import com.example.latte_ec.R2;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
+//登录界面
 public class SignInDelegate extends LatteDelegate {
 
     @BindView(R2.id.edit_sign_in_email)
@@ -21,21 +27,52 @@ public class SignInDelegate extends LatteDelegate {
     @BindView(R2.id.edit_sign_in_password)
     TextInputEditText mPassword = null;
 
+    private ISignListener mISignListener = null;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        super.onAttach(activity);
+        if(activity instanceof ISignListener){
+            mISignListener = (ISignListener) activity;
+        }
+    }
+
     @OnClick(R2.id.tv_link_sign_in)
     void onClickLink() {
         start(new SignUpDelegate());
     }
 
+
+
     @OnClick(R2.id.btn_sign_in)
     void onClickSignIn() {
         if (checkForm()) {
-
+            RestClient.builder()
+                    .url("http://192.168.3.3:8000/RestServer/api/user_profile.php")
+                    .params("email", mEmail.getText().toString())
+                    .params("password", mPassword.getText().toString())
+                    .success(new ISuccess() {
+                        @Override
+                        public void onSucess(String response) {
+                            LatteLogger.json("USER_PROFILE", response);
+                            SignHandler.onSignIn(response,mISignListener);
+                        }
+                    })
+                    .build()
+                    .post();
+            Toast.makeText(getContext(),"SignIn格式全对",Toast.LENGTH_LONG).show();
         }
     }
 
     @OnClick(R2.id.icon_sign_in_wechat)
     void onClickWeChat() {
+        LatteWeChat.getInstance().onSignSuccess(new IWeChatSignInCallback() {
+            @Override
+            public void onSignInSuccess(String userInfo) {
 
+            }
+        }).signIn();
                         Toast.makeText(getContext(), "weixin", Toast.LENGTH_LONG).show();
 
     }

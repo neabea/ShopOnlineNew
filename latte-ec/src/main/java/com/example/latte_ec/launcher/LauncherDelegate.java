@@ -1,12 +1,17 @@
 package com.example.latte_ec.launcher;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
 
+import com.example.latte_core.app.AccountManager;
+import com.example.latte_core.app.IUserChecker;
 import com.example.latte_core.delegates.LatteDelegate;
+import com.example.latte_core.ui.launcher.ILauncherListener;
 import com.example.latte_core.ui.launcher.ScrollLauncherTag;
+import com.example.latte_core.ui.launcher.onLauncherFinishTag;
 import com.example.latte_core.util.storage.LattePreference;
 import com.example.latte_core.util.timer.BaseTimerTask;
 import com.example.latte_core.util.timer.ITimeListener;
@@ -35,11 +40,20 @@ public class LauncherDelegate extends LatteDelegate implements ITimeListener{
 
     private Timer mTimer = null;
     private int mCount = 5;
+    private ILauncherListener mILauncherListener = null;
 
     private void initTimer(){
         mTimer = new Timer();
         final BaseTimerTask task = new BaseTimerTask(this);
         mTimer.schedule(task,0,1000);//任务，马上开始，每隔1秒
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ILauncherListener){
+            mILauncherListener = (ILauncherListener) activity;
+        }
     }
 
     @Override
@@ -78,7 +92,21 @@ public class LauncherDelegate extends LatteDelegate implements ITimeListener{
             start(new LauncherScrollDelegate(), SINGLETASK);
         } else {
             //检查用户是否登录了APP
+            AccountManager.checkAccout(new IUserChecker() {
+                @Override
+                public void onSignIn() {
+                    if(mILauncherListener!=null){
+                        mILauncherListener.onLauncherFinish(onLauncherFinishTag.SIGNED);
+                    }
+                }
 
+                @Override
+                public void onNotSignIn() {
+                    if(mILauncherListener!=null){
+                        mILauncherListener.onLauncherFinish(onLauncherFinishTag.NOT_SIGNED);
+                    }
+                }
+            });
 
         }
     }

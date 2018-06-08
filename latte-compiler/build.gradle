@@ -1,7 +1,12 @@
 apply plugin: 'java-library'
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    api project(':latte-annotations')
+    //代码可以简化
+    api 'com.squareup:javapoet:1.9.0'
+    api 'com.google.auto.service:auto-service:1.0-rc3'
+    api 'com.google.auto:auto-common:0.8'
 }
 
 sourceCompatibility = "1.7"

@@ -18,15 +18,17 @@ public class ExampleApp extends Application {
         Latte.init(this)
                 .withIcon(new FontAwesomeModule())
                 .withApiHost("http://127.0.0.1/")
-                .withInterceptor(new DebugInterceptor("index",R.raw.test))
+                .withInterceptor(new DebugInterceptor("index", R.raw.test))
+                .withWeChatAppId("aa")
+                .withWeChatAppSecret("bb")
                 .configure();
         Logger.addLogAdapter(new AndroidLogAdapter());
-        initStetho();
+        // initStetho();
         DatabaseManager.getInstance().init(this);
     }
 
 
-        private void initStetho() {
+    private void initStetho() {
         Stetho.initialize(
                 Stetho.newInitializerBuilder(this)
                         .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
