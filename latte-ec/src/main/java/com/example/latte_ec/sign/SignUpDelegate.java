@@ -1,5 +1,7 @@
 package com.example.latte_ec.sign;
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputEditText;
@@ -16,7 +18,7 @@ import com.example.latte_ec.R2;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-
+//注册界面
 public class SignUpDelegate extends LatteDelegate {
 
     @BindView(R2.id.edit_sign_up_name)
@@ -29,6 +31,17 @@ public class SignUpDelegate extends LatteDelegate {
     TextInputEditText mRePassword = null;
     @BindView(R2.id.edit_sign_up_phone)
     TextInputEditText mPhone = null;
+    private ISignListener mISignListener = null;
+
+    //注意引用supportFragment里的onAttach
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        if(activity instanceof ISignListener){
+            mISignListener = (ISignListener) activity;
+        }
+
+    }
 
     @OnClick(R2.id.tv_link_sign_up)
     void onClickLink() {
@@ -44,16 +57,16 @@ public class SignUpDelegate extends LatteDelegate {
                     .params("email", mEmail.getText().toString())
                     .params("phone", mPhone.getText().toString())
                     .params("password", mPassword.getText().toString())
-                      .success(new ISuccess() {
+                    .success(new ISuccess() {
                           @Override
                           public void onSucess(String response) {
                               LatteLogger.json("USER_PROFILE", response);
-                              SignHandler.onSignUp(response);
+                              SignHandler.onSignUp(response,mISignListener);
                           }
-                      })
+                    })
                     .build()
                     .post();
-            Toast.makeText(getContext(),"格式全对",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(),"SignUp格式全对",Toast.LENGTH_LONG).show();
         }
     }
 
