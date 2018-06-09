@@ -19,6 +19,7 @@ import com.example.latte_ec.R2;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
 //登录界面
 public class SignInDelegate extends LatteDelegate {
 
@@ -33,7 +34,7 @@ public class SignInDelegate extends LatteDelegate {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         super.onAttach(activity);
-        if(activity instanceof ISignListener){
+        if (activity instanceof ISignListener) {
             mISignListener = (ISignListener) activity;
         }
     }
@@ -42,7 +43,6 @@ public class SignInDelegate extends LatteDelegate {
     void onClickLink() {
         start(new SignUpDelegate());
     }
-
 
 
     @OnClick(R2.id.btn_sign_in)
@@ -56,12 +56,12 @@ public class SignInDelegate extends LatteDelegate {
                         @Override
                         public void onSucess(String response) {
                             LatteLogger.json("USER_PROFILE", response);
-                            SignHandler.onSignIn(response,mISignListener);
+                            SignHandler.onSignIn(response, mISignListener);
                         }
                     })
                     .build()
                     .post();
-            Toast.makeText(getContext(),"SignIn格式全对",Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "SignIn格式全对", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -70,10 +70,11 @@ public class SignInDelegate extends LatteDelegate {
         LatteWeChat.getInstance().onSignSuccess(new IWeChatSignInCallback() {
             @Override
             public void onSignInSuccess(String userInfo) {
+                Toast.makeText(getContext(), userInfo, Toast.LENGTH_LONG).show();
 
             }
         }).signIn();
-                        Toast.makeText(getContext(), "weixin", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), "weixin", Toast.LENGTH_LONG).show();
 
     }
 
@@ -110,7 +111,6 @@ public class SignInDelegate extends LatteDelegate {
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
 
     }
-
 
 
 }
