@@ -5,7 +5,8 @@
     android:layout_weight="1"
     android:paddingBottom="6dp"
     android:paddingTop="6dp"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_above="@id/icon_bottom_item">
 
     <com.joanzapata.iconify.widget.IconTextView
         android:id="@+id/icon_bottom_item"
@@ -13,7 +14,6 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
-        android:text="sdf"
         android:gravity="center"
         android:textSize="25sp" />
 
@@ -22,7 +22,6 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:layout_centerHorizontal="true"
-          android:layout_alignParentTop="true"
-          android:text="dfeeerg"
+          android:layout_alignParentBottom="true"
           android:gravity="center"/>
 </RelativeLayout>
