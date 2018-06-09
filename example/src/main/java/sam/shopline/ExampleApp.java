@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.latte_core.app.Latte;
 import com.example.latte_core.net.interceptors.DebugInterceptor;
 import com.example.latte_ec.database.DatabaseManager;
+import com.example.latte_ec.icon.FontEcModule;
 import com.facebook.stetho.Stetho;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -17,6 +18,7 @@ public class ExampleApp extends Application {
         super.onCreate();
         Latte.init(this)
                 .withIcon(new FontAwesomeModule())
+                .withIcon(new FontEcModule())
                 .withApiHost("http://127.0.0.1/")
                 .withInterceptor(new DebugInterceptor("index", R.raw.test))
                 .withWeChatAppId("aa")

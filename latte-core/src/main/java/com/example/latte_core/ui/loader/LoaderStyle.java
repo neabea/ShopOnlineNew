@@ -1,4 +1,4 @@
-package com.example.latte_core.ui;
+package com.example.latte_core.ui.loader;
 
 @SuppressWarnings("unused")
 public enum LoaderStyle {

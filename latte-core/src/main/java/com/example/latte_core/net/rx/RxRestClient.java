@@ -3,17 +3,9 @@ package com.example.latte_core.net.rx;
 import android.content.Context;
 
 import com.example.latte_core.net.HttpMethod;
-import com.example.latte_core.net.RestClientBuilder;
 import com.example.latte_core.net.RestCreator;
-import com.example.latte_core.net.RestService;
-import com.example.latte_core.net.callback.IError;
-import com.example.latte_core.net.callback.IFailure;
-import com.example.latte_core.net.callback.IRequest;
-import com.example.latte_core.net.callback.ISuccess;
-import com.example.latte_core.net.callback.RequestCallbacks;
-import com.example.latte_core.net.download.DownloadHandler;
-import com.example.latte_core.ui.LatteLoader;
-import com.example.latte_core.ui.LoaderStyle;
+import com.example.latte_core.ui.loader.LatteLoader;
+import com.example.latte_core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;
@@ -23,8 +15,6 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 import rx.Observable;
 
 //每次请求都会新建，但是内容只初始化一次

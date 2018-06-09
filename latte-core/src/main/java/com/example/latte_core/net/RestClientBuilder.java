@@ -6,14 +6,13 @@ import com.example.latte_core.net.callback.IError;
 import com.example.latte_core.net.callback.IFailure;
 import com.example.latte_core.net.callback.IRequest;
 import com.example.latte_core.net.callback.ISuccess;
-import com.example.latte_core.ui.LoaderStyle;
+import com.example.latte_core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;
 import java.util.WeakHashMap;
 
 import okhttp3.MediaType;
-import okhttp3.Request;
 import okhttp3.RequestBody;
 
 public class RestClientBuilder {
