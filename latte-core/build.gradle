@@ -60,7 +60,8 @@ dependencies {
     compile 'com.bigkoo:convenientbanner:2.0.5'
     compile 'com.ToxicBakery.viewpager.transforms:view-pager-transforms:1.2.32@aar'
     //Json
-    compile 'com.alibaba:fastjson:1.2.47'
+    //compile 'com.alibaba:fastjson:1.2.47'
+    api 'com.alibaba:fastjson:1.1.67.android'
     //Recycleview
     implementation 'com.android.support:recyclerview-v7:27.1.1'
     //Logger
@@ -70,4 +71,6 @@ dependencies {
     api 'org.greenrobot:greendao-generator:3.2.2'
     //微信 包含统计
     api 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    //BaseRecycleView 注意需要在project 加maven
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }
